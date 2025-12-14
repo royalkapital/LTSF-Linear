@@ -12,6 +12,7 @@ np.random.seed(seed)
 def main():
     parser = argparse.ArgumentParser(description='LTSF-Linear Closed-Form Solution')
     
+    # Data
     parser.add_argument('--data', type=str, default='ETTh1', help='dataset type')
     parser.add_argument('--root_path', type=str, default='./dataset/ETT-small/', help='root path')
     parser.add_argument('--data_path', type=str, default='ETTh1.csv', help='data file')
@@ -19,16 +20,25 @@ def main():
     parser.add_argument('--target', type=str, default='OT', help='target feature')
     parser.add_argument('--freq', type=str, default='h', help='freq')
     
+    # Forecasting
     parser.add_argument('--seq_len', type=int, default=336, help='input sequence length')
     parser.add_argument('--label_len', type=int, default=48, help='start token length')
     parser.add_argument('--pred_len', type=int, default=96, help='prediction length')
     
+    # Model
     parser.add_argument('--enc_in', type=int, default=7, help='encoder input size')
     parser.add_argument('--individual', action='store_true', default=False, help='individual channel weights')
     
+    # DataLoader
     parser.add_argument('--batch_size', type=int, default=32, help='batch size')
     parser.add_argument('--num_workers', type=int, default=0, help='num workers')
     parser.add_argument('--embed', type=str, default='timeF', help='time encoding')
+    
+    # Additional required arguments for data_provider
+    parser.add_argument('--train_only', action='store_true', default=False, help='train only')
+    parser.add_argument('--scale', type=bool, default=True, help='scale data')
+    parser.add_argument('--timeenc', type=int, default=0, help='time encoding type')
+    parser.add_argument('--seasonal_patterns', type=str, default='Monthly', help='seasonal patterns')
     
     args = parser.parse_args()
     
